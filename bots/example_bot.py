@@ -60,6 +60,11 @@ class BotPlayer(Player):
 
         # iterate through dictionary of robots
         for rname, rob in robots.items():
+
+            if RobotInfo.battery == 0:
+                dir_to_home = game_state.robot_to_base(rname)
+                game_state.move_robot(rname, dir_to_home[0])
+                continue
             # print(f"Robot {rname} at {rob.row, rob.col}")
             # print("Hello This is something new:", all_tiles[neighbor_tile[0]][neighbor_tile[1]].state)
 
@@ -77,8 +82,8 @@ class BotPlayer(Player):
                 if self.OnBoard(x, y, width, height) and (test_tile is not None) and (test_tile.state == TileState.MINING):
                     mine_tile = i
                     break
-          
-                
+
+
 
             # check if we can move in this direction
             if game_state.can_move_robot(rname, move_dir):
